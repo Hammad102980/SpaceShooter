@@ -1,92 +1,58 @@
 package com.mygdx.spaceshooter;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.utils.Array;
-import java.util.Iterator;
+import com.badlogic.gdx.graphics.GL20;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GameScreen implements Screen {
+public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
+    private Player player;
     private EnemySpawner enemySpawner;
-    private Array<Bullet> bullets;
+    private List<Bullet> bullets;
 
-    public GameScreen() {
+    @Override
+    public void show() {
         batch = new SpriteBatch();
+        player = new Player();
         enemySpawner = new EnemySpawner();
-        bullets = new Array<>();
+        bullets = new ArrayList<>();
     }
 
     @Override
     public void render(float delta) {
+        // Clear the screen
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Detect spacebar press to fire a bullet
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            bullets.add(new Bullet(400, 50)); // Adjust X & Y later
-        }
+        // Update player
+        player.update(delta);
 
-        // Update bullets
-        for (Iterator<Bullet> iter = bullets.iterator(); iter.hasNext(); ) {
-            Bullet bullet = iter.next();
-            bullet.update(delta);
-            if (bullet.isOffScreen()) {
-                iter.remove();
-            }
-        }
-
-        // Update enemies
-        enemySpawner.update(delta);
-
-        // Check for bullet collisions with enemies
-        checkCollisions();
-
-        // Draw everything
+        // Begin drawing
         batch.begin();
+        player.draw(batch);
         enemySpawner.draw(batch);
+
         for (Bullet bullet : bullets) {
             bullet.draw(batch);
         }
+
         batch.end();
+
+        // Check collisions and update game state
+        checkCollisions();
     }
 
-    // Collision detection: Remove bullets & enemies on impact
     private void checkCollisions() {
-        Iterator<Bullet> bulletIter = bullets.iterator();
-        while (bulletIter.hasNext()) {
-            Bullet bullet = bulletIter.next();
-            Iterator<Enemy> enemyIter = enemySpawner.getEnemies().iterator();
-
-            while (enemyIter.hasNext()) {
-                Enemy enemy = enemyIter.next();
-                if (bullet.getBounds().overlaps(enemy.getBounds())) {
-                    bulletIter.remove();
-                    enemyIter.remove();
-                    break;
-                }
-            }
-        }
+        // Add collision logic (e.g., player and enemies, bullets and enemies)
     }
 
     @Override
     public void dispose() {
         batch.dispose();
+        player.dispose();
         enemySpawner.dispose();
-        for (Bullet bullet : bullets) {
-            bullet.dispose();
-        }
     }
-
-    @Override
-    public void show() {}
-    @Override
-    public void resize(int width, int height) {}
-    @Override
-    public void pause() {}
-    @Override
-    public void resume() {}
-    @Override
-    public void hide() {}
 }

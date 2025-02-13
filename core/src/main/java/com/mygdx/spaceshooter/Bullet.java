@@ -1,5 +1,6 @@
 package com.mygdx.spaceshooter;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -24,8 +25,9 @@ public class Bullet {
     }
 
     public boolean isOffScreen() {
-        return bulletBounds.y > 600; // Remove if off-screen
+        return bulletBounds.y > Gdx.graphics.getHeight();
     }
+
 
     public Rectangle getBounds() {
         return bulletBounds;

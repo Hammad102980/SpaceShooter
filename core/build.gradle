@@ -1,16 +1,32 @@
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-core'
+plugins {
+  id 'java'
+  id 'application'
+}
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(23)
+  }
+}
+
+application {
+  mainClass = 'com.mygdx.spaceshooter.Main' // Replace this with your main class
+}
+
+repositories {
+  mavenCentral()
+}
 
 dependencies {
-  api "com.badlogicgames.ashley:ashley:$ashleyVersion"
-  api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-  api "com.badlogicgames.gdx:gdx:$gdxVersion"
-  api "com.github.tommyettinger:anim8-gdx:$anim8Version"
-  api "com.kotcrab.vis:vis-ui:$visUiVersion"
-  api "io.github.libktx:ktx-ashley:$ktxVersion"
+  implementation "com.badlogicgames.gdx:gdx:1.11.0"
+  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:1.11.0"
+  implementation "com.badlogicgames.gdx:gdx-platform:1.11.0:natives-desktop"
+}
 
-  if(enableGraalNative == 'true') {
-    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
-  }
+tasks.withType(JavaCompile).configureEach {
+  options.compilerArgs += "--enable-preview"
+}
+
+tasks.withType(JavaExec).configureEach {
+  jvmArgs += "--enable-preview"
 }
