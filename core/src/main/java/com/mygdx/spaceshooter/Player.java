@@ -12,28 +12,17 @@ public class Player {
     private float speed;
 
     public Player() {
-        this.playerTexture = new Texture("player.png"); // Add player.png to assets
-        this.playerBounds = new Rectangle(400, 50, 64, 64); // Initial position and size
-        this.speed = 300; // Movement speed
+        playerTexture = new Texture("player.png");  // Ensure this is in assets
+        playerBounds = new Rectangle(400, 50, 64, 64);
+        speed = 300;
     }
 
     public void update(float delta) {
-        // Move left
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            playerBounds.x -= speed * delta;
-        }
-        // Move right
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            playerBounds.x += speed * delta;
-        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) playerBounds.x -= speed * delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) playerBounds.x += speed * delta;
 
-        // Keep the player within screen bounds
-        if (playerBounds.x < 0) {
-            playerBounds.x = 0;
-        }
-        if (playerBounds.x > 800 - playerBounds.width) { // Assuming screen width is 800
-            playerBounds.x = 800 - playerBounds.width;
-        }
+        // Keep within screen bounds
+        playerBounds.x = Math.max(0, Math.min(800 - playerBounds.width, playerBounds.x));
     }
 
     public void draw(SpriteBatch batch) {

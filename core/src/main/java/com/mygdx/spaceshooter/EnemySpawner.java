@@ -3,7 +3,6 @@ package com.mygdx.spaceshooter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import java.util.Iterator;
 import java.util.Random;
 
@@ -19,7 +18,7 @@ public class EnemySpawner {
     }
 
     public void update(float deltaTime) {
-        if (TimeUtils.timeSinceMillis(lastSpawnTime) > 1000) {
+        if (TimeUtils.timeSinceMillis(lastSpawnTime) > 1000) {  // Spawn every 1 second
             float x = random.nextInt(800 - 64);
             enemies.add(new Enemy(x, 600, 200));
             lastSpawnTime = TimeUtils.millis();
@@ -28,9 +27,7 @@ public class EnemySpawner {
         for (Iterator<Enemy> iter = enemies.iterator(); iter.hasNext(); ) {
             Enemy enemy = iter.next();
             enemy.update(deltaTime);
-            if (enemy.isOffScreen()) {
-                iter.remove();
-            }
+            if (enemy.isOffScreen()) iter.remove();
         }
     }
 
@@ -44,5 +41,9 @@ public class EnemySpawner {
         for (Enemy enemy : enemies) {
             enemy.dispose();
         }
+    }
+
+    public Array<Enemy> getEnemies() {
+        return enemies;
     }
 }

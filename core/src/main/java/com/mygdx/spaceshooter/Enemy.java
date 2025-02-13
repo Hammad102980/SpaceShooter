@@ -10,8 +10,8 @@ public class Enemy {
     private float speed;
 
     public Enemy(float x, float y, float speed) {
-        this.enemyTexture = new Texture("enemy.png");
-        this.enemyBounds = new Rectangle(x, y, 64, 64);
+        enemyTexture = new Texture("enemy.png");  // Ensure this is in assets
+        enemyBounds = new Rectangle(x, y, 64, 64);
         this.speed = speed;
     }
 
@@ -25,6 +25,10 @@ public class Enemy {
 
     public boolean isOffScreen() {
         return enemyBounds.y + enemyBounds.height < 0;
+    }
+
+    public Rectangle getBounds() {
+        return enemyBounds;
     }
 
     public void dispose() {

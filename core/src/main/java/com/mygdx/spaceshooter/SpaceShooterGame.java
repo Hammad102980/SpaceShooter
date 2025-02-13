@@ -9,12 +9,12 @@ public class SpaceShooterGame extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        this.setScreen(new GameScreen(this));
+        setScreen(new GameScreen(this));  // Start with GameScreen
     }
 
     @Override
     public void render() {
-        super.render();
+        super.render();  // Delegate rendering to the current screen
     }
 
     @Override

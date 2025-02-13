@@ -30,3 +30,8 @@ tasks.withType(JavaCompile).configureEach {
 tasks.withType(JavaExec).configureEach {
   jvmArgs += "--enable-preview"
 }
+apply plugin: 'java-library'
+
+dependencies {
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+}

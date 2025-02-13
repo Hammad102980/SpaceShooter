@@ -10,9 +10,9 @@ public class Bullet {
     private float speed;
 
     public Bullet(float x, float y) {
-        this.bulletTexture = new Texture("bullet.png");
-        this.bulletBounds = new Rectangle(x, y, 8, 20);
-        this.speed = 400;
+        bulletTexture = new Texture("bullet.png");  // Ensure this is in assets
+        bulletBounds = new Rectangle(x, y, 8, 20);
+        speed = 400;
     }
 
     public void update(float deltaTime) {
@@ -25,6 +25,10 @@ public class Bullet {
 
     public boolean isOffScreen() {
         return bulletBounds.y > 600;
+    }
+
+    public Rectangle getBounds() {
+        return bulletBounds;
     }
 
     public void dispose() {
