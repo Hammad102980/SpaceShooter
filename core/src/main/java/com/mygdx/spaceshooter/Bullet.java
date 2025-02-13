@@ -1,6 +1,5 @@
 package com.mygdx.spaceshooter;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,13 +10,13 @@ public class Bullet {
     private float speed;
 
     public Bullet(float x, float y) {
-        this.bulletTexture = new Texture("bullet.png"); // Add bullet.png to assets
-        this.bulletBounds = new Rectangle(x, y, 8, 20); // Adjust size
-        this.speed = 400; // Bullet speed
+        this.bulletTexture = new Texture("bullet.png");
+        this.bulletBounds = new Rectangle(x, y, 8, 20);
+        this.speed = 400;
     }
 
     public void update(float deltaTime) {
-        bulletBounds.y += speed * deltaTime; // Move bullet upwards
+        bulletBounds.y += speed * deltaTime;
     }
 
     public void draw(SpriteBatch batch) {
@@ -25,12 +24,7 @@ public class Bullet {
     }
 
     public boolean isOffScreen() {
-        return bulletBounds.y > Gdx.graphics.getHeight();
-    }
-
-
-    public Rectangle getBounds() {
-        return bulletBounds;
+        return bulletBounds.y > 600;
     }
 
     public void dispose() {

@@ -10,13 +10,13 @@ public class Enemy {
     private float speed;
 
     public Enemy(float x, float y, float speed) {
-        this.enemyTexture = new Texture("enemy.png"); // Make sure to add an enemy.png in assets
-        this.enemyBounds = new Rectangle(x, y, 64, 64); // Adjust size as needed
+        this.enemyTexture = new Texture("enemy.png");
+        this.enemyBounds = new Rectangle(x, y, 64, 64);
         this.speed = speed;
     }
 
     public void update(float deltaTime) {
-        enemyBounds.y -= speed * deltaTime; // Move down the screen
+        enemyBounds.y -= speed * deltaTime;
     }
 
     public void draw(SpriteBatch batch) {
@@ -25,10 +25,6 @@ public class Enemy {
 
     public boolean isOffScreen() {
         return enemyBounds.y + enemyBounds.height < 0;
-    }
-
-    public Rectangle getBounds() {
-        return enemyBounds;
     }
 
     public void dispose() {
